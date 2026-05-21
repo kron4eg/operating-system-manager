@@ -12,15 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ARG GO_VERSION=1.25.7
+ARG GO_VERSION=1
 FROM golang:${GO_VERSION} AS builder
 WORKDIR /go/src/k8c.io/operating-system-manager
 COPY . .
 RUN make all
 
-FROM alpine:3.23
+FROM alpine:3
 
-RUN apk add --no-cache ca-certificates cdrkit
+RUN apk add --no-cache ca-certificates
 
 COPY --from=builder \
     /go/src/k8c.io/operating-system-manager/_build/osm-controller \
